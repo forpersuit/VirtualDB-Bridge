@@ -133,6 +133,31 @@ Maps API Keys to tenant prefixes. Can be updated dynamically without restarting 
   ```
 - **Sender Verification**: The gateway connects to a `vmail` database to verify if the `from` address is active in the `mailbox` table. If it's missing or inactive, the request is rejected with a 400 error.
 
+## Security Architecture & Principles
+
+VirtualDB-Bridge is built on the principle of **Defense in Depth** and follows a **Zero Trust** security model.
+
+### 1. The "Double-Gate" Authentication
+Every request must pass through two independent authentication layers:
+- **Layer 1: Edge Security (Cloudflare Access)**: All requests are intercepted at the Cloudflare edge. Only clients with a valid **Service Token** (Client ID & Secret) can reach the server. The bridge validates the `cf-access-jwt-assertion` header against Cloudflare's public keys to ensure the request is untampered.
+- **Layer 2: Logic Security (API Key)**: Once inside the "perimeter," the request body must contain a tenant-specific `apiKey`. This key identifies the tenant and determines their specific database prefix.
+
+### 2. Transparent Data Isolation
+The core security feature is **SQL Virtualization**. The bridge acts as a smart proxy that:
+- Automatically rewrites SQL to enforce tenant prefixes.
+- Filters results (like `SHOW DATABASES`) to hide other tenants' metadata.
+- **Why it's secure**: This removes the risk of "cross-tenant" data leakage caused by developer mistakes in the application code. Isolation is enforced at the gateway layer.
+
+### 3. Secure Data Transmission
+- **End-to-End Encryption**: Data is encrypted using **TLS 1.3** from the client to the Cloudflare edge, and from the edge to the origin server.
+- **JWT Validation**: By validating the JWT signature and audience tag, the bridge ensures that no unauthorized traffic can bypass the Cloudflare firewall to reach the internal DB.
+
+### 4. Database-Level Protection (The Safety Net)
+Even if the gateway logic were compromised, the shared database user is granted permissions using a **Wildcard Pattern** (e.g., `GRANT ... ON 'tenantA_%'.*`). This ensures that the database engine itself rejects any query attempting to access databases outside the authorized prefix.
+
+### 5. Email Spoofing Prevention
+The Email Proxy doesn't just forward mail; it performs **Sender Verification**. It queries a trusted `vmail` database to ensure the `from` address belongs to an active, authorized mailbox for that tenant, preventing malicious email spoofing.
+
 ## Advanced Production Setup
 
 ### Database Permissions

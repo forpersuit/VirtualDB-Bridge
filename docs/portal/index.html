@@ -143,6 +143,59 @@
             </div>
         </section>
 
+        <!-- Security Deep Dive -->
+        <section id="security" class="mb-24">
+            <h2 class="text-3xl font-bold mb-12 text-center">
+                <span data-lang="en">Security Architecture & Zero Trust</span>
+                <span data-lang="zh">安全架构与零信任原则</span>
+            </h2>
+            <div class="bg-slate-900 text-white p-8 rounded-2xl shadow-xl">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-6">
+                        <div class="border-l-4 border-blue-500 pl-4">
+                            <h3 class="font-bold text-xl mb-2" data-lang="en">1. The "Double-Gate" Protocol</h3>
+                            <h3 class="font-bold text-xl mb-2" data-lang="zh">1. “双重门禁”协议</h3>
+                            <p class="text-slate-400 text-sm" data-lang="en">Security is not a single wall, but a series of checkpoints. We combine Edge Infrastructure (Cloudflare) with Business Logic (API Keys).</p>
+                            <p class="text-slate-400 text-sm" data-lang="zh">安全不是一堵墙，而是一系列检查站。我们将边缘基础设施（Cloudflare）与业务逻辑（API Key）紧密结合。</p>
+                        </div>
+                        <div class="border-l-4 border-teal-500 pl-4">
+                            <h3 class="font-bold text-xl mb-2" data-lang="en">2. Defense in Depth</h3>
+                            <h3 class="font-bold text-xl mb-2" data-lang="zh">2. 深度防御</h3>
+                            <p class="text-slate-400 text-sm" data-lang="en">From TLS 1.3 encryption to database-level wildcard permissions, every layer is designed to assume the previous one might fail.</p>
+                            <p class="text-slate-400 text-sm" data-lang="zh">从 TLS 1.3 加密到数据库层面的通配符权限，每一层都旨在防御前一层的潜在失效。</p>
+                        </div>
+                        <div class="border-l-4 border-purple-500 pl-4">
+                            <h3 class="font-bold text-xl mb-2" data-lang="en">3. Verifiable Identity</h3>
+                            <h3 class="font-bold text-xl mb-2" data-lang="zh">3. 可验证的身份</h3>
+                            <p class="text-slate-400 text-sm" data-lang="en">JWT validation ensures the request source is authentic, while the mailbox verification prevents email spoofing.</p>
+                            <p class="text-slate-400 text-sm" data-lang="zh">JWT 校验确保请求来源真实，而邮箱验证则彻底杜绝了邮件伪造的可能性。</p>
+                        </div>
+                    </div>
+                    <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
+                        <div class="mermaid">
+                            graph TD
+                                classDef secure fill:#0f172a,stroke:#3b82f6,color:#fff
+                                classDef check fill:#1e293b,stroke:#2dd4bf,color:#fff
+                                
+                                User((Internet User)) -->|TLS 1.3| CF[Cloudflare Edge]
+                                subgraph Gateway [VirtualDB-Bridge]
+                                    JWT{JWT Signature Check}
+                                    API{API Key Matching}
+                                    Rewriter[SQL Isolation Rewriter]
+                                end
+                                CF -->|Service Token| JWT
+                                JWT -->|Valid| API
+                                API -->|Matched| Rewriter
+                                Rewriter -->|Tenant Prefix| DB[(MariaDB Wildcard Auth)]
+                                
+                                class JWT,API,DB check
+                                class Rewriter secure
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Setup Wizard -->
         <section id="setup" class="mb-24">
             <h2 class="text-3xl font-bold mb-12 text-center">
