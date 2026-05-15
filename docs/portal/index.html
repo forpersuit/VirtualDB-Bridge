@@ -5,17 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO & Metadata -->
-    <title>VirtualDB-Bridge | Secure Multi-tenant SQL & Email Gateway | 虚拟数据库网关</title>
-    <meta name="description" content="VirtualDB-Bridge is an open-source, secure SQL virtualization gateway for multi-tenant apps. Featuring transparent SQL rewriting, Cloudflare Zero Trust integration, and secure email proxying.">
-    <meta name="keywords" content="SQL Virtualization, Multi-tenancy, Database Security, Cloudflare Access, Zero Trust, SQL Rewriting, Database Proxy, Email Gateway">
+    <title>VirtualDB-Bridge | Secure Multi-tenant SQL & Email Gateway</title>
+    <meta name="description" content="VirtualDB-Bridge: Open-source SQL virtualization gateway for multi-tenant apps. Featuring transparent SQL rewriting and Cloudflare Zero Trust.">
+    <meta name="keywords" content="SQL Virtualization, Multi-tenancy, Database Security, Cloudflare Access, Zero Trust">
     <meta name="author" content="forpersuit">
     <link rel="canonical" href="https://forpersuit.github.io/VirtualDB-Bridge/docs/portal/index.html" />
-    
-    <!-- Open Graph / Social Media -->
-    <meta property="og:title" content="VirtualDB-Bridge | Secure Multi-tenant SQL Gateway">
-    <meta property="og:description" content="Transparent SQL isolation and secure email proxying for modern multi-tenant architectures.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://forpersuit.github.io/VirtualDB-Bridge/docs/portal/index.html">
     
     <!-- Scripts & Styles -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -32,23 +26,16 @@
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code&display=swap');
-        
         body { font-family: 'Inter', sans-serif; }
         .gradient-text { background: linear-gradient(90deg, #3b82f6, #2dd4bf); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .step-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid rgba(226, 232, 240, 0.8); }
+        .step-card { transition: all 0.3s ease; border: 1px solid rgba(226, 232, 240, 0.8); }
         .step-card:hover { transform: translateY(-4px); border-color: #3b82f6; box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.1); }
-        pre { background: #0f172a; color: #e2e8f0; padding: 1.25rem; border-radius: 0.75rem; overflow-x: auto; font-family: 'Fira Code', monospace; font-size: 0.875rem; line-height: 1.6; }
+        pre { background: #0f172a; color: #e2e8f0; padding: 1.25rem; border-radius: 0.75rem; overflow-x: auto; font-family: 'Fira Code', monospace; font-size: 0.8125rem; line-height: 1.5; }
         .mermaid { background: white; border-radius: 1rem; padding: 1rem; }
         [data-lang] { display: none; }
         .lang-en [data-lang="en"] { display: block; }
-        .lang-en [data-lang-inline="en"] { display: inline; }
         .lang-zh [data-lang="zh"] { display: block; }
-        .lang-zh [data-lang-inline="zh"] { display: inline; }
-        
-        /* Smooth scrolling */
         html { scroll-behavior: smooth; }
-        
-        /* Nav background blur */
         .glass-nav { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
     </style>
 </head>
@@ -62,10 +49,10 @@
                 <span class="text-xl font-extrabold tracking-tight">VirtualDB-Bridge</span>
             </div>
             <nav class="hidden md:flex space-x-8 text-sm font-semibold text-slate-600">
-                <a href="#concept" class="hover:text-blue-600 transition" data-lang="en">Principle</a>
+                <a href="#concept" class="hover:text-blue-600 transition" data-lang="en">How it Works</a>
                 <a href="#concept" class="hover:text-blue-600 transition" data-lang="zh">运行原理</a>
-                <a href="#demo" class="hover:text-blue-600 transition" data-lang="en">Demo</a>
-                <a href="#demo" class="hover:text-blue-600 transition" data-lang="zh">演示</a>
+                <a href="#demo" class="hover:text-blue-600 transition" data-lang="en">API Demos</a>
+                <a href="#demo" class="hover:text-blue-600 transition" data-lang="zh">接口演示</a>
                 <a href="#security" class="hover:text-blue-600 transition" data-lang="en">Security</a>
                 <a href="#security" class="hover:text-blue-600 transition" data-lang="zh">安全架构</a>
                 <a href="#setup" class="hover:text-blue-600 transition" data-lang="en">Deploy</a>
@@ -73,8 +60,8 @@
             </nav>
             <div class="flex items-center space-x-4">
                 <button onclick="toggleLang()" class="text-xs font-bold text-blue-600 bg-blue-50 border border-blue-200 px-3 py-1.5 rounded-full hover:bg-blue-100 transition shadow-sm">
-                    <span data-lang="en"><i class="fa-solid fa-language mr-1"></i>中文</span>
-                    <span data-lang="zh"><i class="fa-solid fa-language mr-1"></i>English</span>
+                    <span data-lang="en">中文</span>
+                    <span data-lang="zh">English</span>
                 </button>
                 <a href="https://github.com/forpersuit/VirtualDB-Bridge" target="_blank" class="bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-slate-800 transition flex items-center">
                     <i class="fa-brands fa-github mr-2"></i>GitHub
@@ -94,75 +81,58 @@
                 <span data-lang="zh">让多租户开发<br><span class="gradient-text">坚如磐石</span></span>
             </h1>
             <p class="text-xl text-slate-500 max-w-3xl mx-auto mb-12">
-                <span data-lang="en">VirtualDB-Bridge is a high-performance gateway that enforces transparent SQL isolation and secure email proxying, all protected by Zero Trust security.</span>
-                <span data-lang="zh">VirtualDB-Bridge 是一个高性能网关。它强制执行透明的 SQL 隔离和安全的邮件代理，全程受到零信任架构保护，彻底杜绝数据泄露。</span>
+                <span data-lang="en">High-performance SQL virtualization gateway. Enforce isolation, secure email delivery, and Zero Trust protection for your data infrastructure.</span>
+                <span data-lang="zh">高性能 SQL 虚拟化网关。为您的数据架构强制执行租户隔离、安全邮件代理以及零信任防护。</span>
             </p>
             <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
                 <a href="#setup" class="bg-blue-600 text-white px-10 py-4 rounded-xl font-bold hover:bg-blue-700 shadow-xl shadow-blue-200 transition text-lg">
-                    <span data-lang="en">Get Started</span>
-                    <span data-lang="zh">快速开始</span>
+                    <span data-lang="en">Deploy Now</span>
+                    <span data-lang="zh">立即部署</span>
                 </a>
                 <a href="#concept" class="bg-white border border-slate-200 px-10 py-4 rounded-xl font-bold hover:bg-slate-50 transition text-lg">
-                    <span data-lang="en">How it Works</span>
-                    <span data-lang="zh">了解原理</span>
+                    <span data-lang="en">Read Docs</span>
+                    <span data-lang="zh">查看文档</span>
                 </a>
             </div>
         </section>
 
-        <!-- Core Concept Section -->
+        <!-- Core Concept -->
         <section id="concept" class="mb-32 scroll-mt-24">
             <div class="bg-white p-10 rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100">
                 <div class="max-w-4xl mx-auto">
                     <h2 class="text-3xl font-extrabold mb-12 text-center">
-                        <span data-lang="en">Transparent SQL Virtualization</span>
-                        <span data-lang="zh">透明化 SQL 虚拟化</span>
+                        <span data-lang="en">Core Principles</span>
+                        <span data-lang="zh">运行原理</span>
                     </h2>
                     <div class="grid md:grid-cols-2 gap-16 items-center">
                         <div class="mermaid">
                             graph TD
-                                A[Client App] -->|1. Raw SQL| B(VirtualDB-Bridge)
-                                B -->|2. Identifies Tenant| C{Rewrite Logic}
-                                C -->|3. Forces Prefix| D[Physical Database]
-                                D -->|4. Filters Results| B
+                                A[App Service] -->|1. Standard SQL| B(VirtualDB-Bridge)
+                                B -->|2. Verify Identity| C{SQL Engine}
+                                C -->|3. Rewrite SQL| D[Shared DB]
+                                D -->|4. Tenant Results| B
                                 B -->|5. Clean Response| A
                                 
                                 style B fill:#3b82f6,color:#fff,stroke:#2563eb
                                 style C fill:#2dd4bf,color:#fff,stroke:#0d9488
                                 style D fill:#f1f5f9,stroke:#94a3b8
                         </div>
-                        <div class="space-y-8">
-                            <div class="flex items-start group">
-                                <div class="bg-blue-100 p-3 rounded-2xl text-blue-600 mr-4 transition group-hover:bg-blue-600 group-hover:text-white">
-                                    <i class="fa-solid fa-wand-magic-sparkles text-xl"></i>
-                                </div>
-                                <div>
-                                    <h3 class="font-extrabold text-lg mb-1" data-lang="en">Zero Code Changes</h3>
-                                    <h3 class="font-extrabold text-lg mb-1" data-lang="zh">无需修改代码</h3>
-                                    <p class="text-slate-500 text-sm" data-lang="en">Write standard SQL queries as if you own the entire database instance.</p>
-                                    <p class="text-slate-500 text-sm" data-lang="zh">编写标准的 SQL，就像你在操作一个独立的数据库实例一样。</p>
-                                </div>
+                        <div class="space-y-8 text-sm">
+                            <div data-lang="en">
+                                <h3 class="font-extrabold text-slate-900 mb-2 uppercase tracking-widest text-xs">Transparent Proxy</h3>
+                                <p class="text-slate-500">Applications talk to the Bridge using standard MySQL protocol. No proprietary libraries or complex SDKs needed.</p>
                             </div>
-                            <div class="flex items-start group">
-                                <div class="bg-teal-100 p-3 rounded-2xl text-teal-600 mr-4 transition group-hover:bg-teal-600 group-hover:text-white">
-                                    <i class="fa-solid fa-shield-halved text-xl"></i>
-                                </div>
-                                <div>
-                                    <h3 class="font-extrabold text-lg mb-1" data-lang="en">Automatic Isolation</h3>
-                                    <h3 class="font-extrabold text-lg mb-1" data-lang="zh">自动隔离强制</h3>
-                                    <p class="text-slate-500 text-sm" data-lang="en">The bridge automatically adds tenant prefixes to CREATE, DROP, and USE commands.</p>
-                                    <p class="text-slate-500 text-sm" data-lang="zh">网关会自动为 CREATE、DROP 和 USE 等命令添加对应的租户前缀。</p>
-                                </div>
+                            <div data-lang="zh">
+                                <h3 class="font-extrabold text-slate-900 mb-2 uppercase tracking-widest text-xs text-blue-600">透明代理</h3>
+                                <p class="text-slate-500">应用程序使用标准 SQL 与网关通信。无需任何私有库或复杂的 SDK。</p>
                             </div>
-                            <div class="flex items-start group">
-                                <div class="bg-purple-100 p-3 rounded-2xl text-purple-600 mr-4 transition group-hover:bg-purple-600 group-hover:text-white">
-                                    <i class="fa-solid fa-envelope-open-text text-xl"></i>
-                                </div>
-                                <div>
-                                    <h3 class="font-extrabold text-lg mb-1" data-lang="en">Mail Gateway</h3>
-                                    <h3 class="font-extrabold text-lg mb-1" data-lang="zh">集成邮件网关</h3>
-                                    <p class="text-slate-500 text-sm" data-lang="en">Securely proxy email delivery with built-in sender verification logic.</p>
-                                    <p class="text-slate-500 text-sm" data-lang="zh">安全的邮件代发代理，内置发件人权限校验逻辑。</p>
-                                </div>
+                            <div data-lang="en">
+                                <h3 class="font-extrabold text-slate-900 mb-2 uppercase tracking-widest text-xs text-blue-600">Dynamic Isolation</h3>
+                                <p class="text-slate-500">Every query is inspected and rewritten to include tenant-specific prefixes, ensuring physical data separation.</p>
+                            </div>
+                            <div data-lang="zh">
+                                <h3 class="font-extrabold text-slate-900 mb-2 uppercase tracking-widest text-xs text-blue-600">动态隔离</h3>
+                                <p class="text-slate-500">每一条查询都会被解析并重写，自动注入租户专属前缀，确保物理层面的数据隔离。</p>
                             </div>
                         </div>
                     </div>
@@ -170,49 +140,89 @@
             </div>
         </section>
 
-        <!-- Code Demo Section -->
+        <!-- Detailed API Demos (Test Cases) -->
         <section id="demo" class="mb-32 scroll-mt-24">
-            <h2 class="text-3xl font-extrabold mb-12 text-center" data-lang="en">Live SQL Virtualization Demo</h2>
-            <h2 class="text-3xl font-extrabold mb-12 text-center" data-lang="zh">SQL 虚拟化实时演示</h2>
-            <div class="bg-slate-900 rounded-3xl shadow-2xl overflow-hidden border border-slate-700">
-                <div class="flex items-center justify-between bg-slate-800/50 px-6 py-4 border-b border-slate-700">
-                    <div class="flex space-x-2">
-                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                    </div>
-                    <div class="text-xs font-mono text-slate-500">bridge-api-v2.terminal</div>
-                </div>
-                <div class="grid lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
-                    <div class="p-8">
-                        <div class="flex items-center text-blue-400 text-xs font-bold uppercase mb-4 tracking-widest">
-                            <i class="fa-solid fa-paper-plane mr-2"></i> Client Sends (Raw SQL)
+            <h2 class="text-3xl font-extrabold mb-12 text-center">
+                <span data-lang="en">Real-world Communication Demos</span>
+                <span data-lang="zh">真实通信用例演示</span>
+            </h2>
+            
+            <div class="space-y-12">
+                <!-- Case 1: Database Query -->
+                <div class="bg-slate-900 rounded-3xl shadow-2xl overflow-hidden">
+                    <div class="bg-slate-800 px-6 py-4 flex items-center justify-between border-b border-slate-700">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-3 h-3 rounded-full bg-blue-500"></div>
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Case 01: Secure SQL Virtualization</span>
                         </div>
-                        <pre class="bg-transparent border-none p-0 text-slate-300">
-<span class="text-slate-500">POST /query</span>
+                        <span class="px-2 py-0.5 rounded bg-blue-500/20 text-[10px] font-bold text-blue-400 uppercase">POST /query</span>
+                    </div>
+                    <div class="grid lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+                        <div class="p-8">
+                            <h4 class="text-slate-500 text-[10px] font-bold uppercase mb-4 tracking-widest" data-lang="en">Request Payload</h4>
+                            <h4 class="text-slate-500 text-[10px] font-bold uppercase mb-4 tracking-widest" data-lang="zh">请求负载</h4>
+                            <pre class="bg-transparent p-0 text-blue-300">
+<span class="text-slate-500">// Headers: CF-Access-Client-Id: ..., CF-Access-Client-Secret: ...</span>
 {
-  "apiKey": "sk_tenant_99",
-  "sql": "SELECT * FROM users",
+  "apiKey": "sk-tenant-88-prod",
+  "sql": "CREATE TABLE IF NOT EXISTS inventory (
+    id INT PRIMARY KEY,
+    item_name VARCHAR(100)
+  )",
   "params": []
 }</pre>
-                    </div>
-                    <div class="p-8 bg-slate-900/50">
-                        <div class="flex items-center text-emerald-400 text-xs font-bold uppercase mb-4 tracking-widest">
-                            <i class="fa-solid fa-microchip mr-2"></i> Bridge Executes (Virtualized)
                         </div>
-                        <pre class="bg-transparent border-none p-0 text-emerald-300">
-<span class="text-slate-500">-- Rewritten on the fly</span>
-SELECT * FROM `t99_users`
-<span class="text-slate-500">-- Results are returned normally</span></pre>
-                        <div class="mt-8 pt-6 border-t border-slate-800 flex items-center">
-                            <div class="bg-emerald-500/10 text-emerald-500 p-2 rounded-lg mr-4">
-                                <i class="fa-solid fa-lock text-xl"></i>
-                            </div>
-                            <div>
-                                <p class="text-white font-bold text-sm" data-lang="en">Isolation Guaranteed</p>
-                                <p class="text-white font-bold text-sm" data-lang="zh">强制隔离保障</p>
-                                <p class="text-slate-500 text-xs" data-lang="en">Tenant 99 can NEVER see Tenant 100's data.</p>
-                                <p class="text-slate-500 text-xs" data-lang="zh">租户 99 永远物理上无法读取租户 100 的数据。</p>
+                        <div class="p-8 bg-slate-900/50">
+                            <h4 class="text-emerald-500 text-[10px] font-bold uppercase mb-4 tracking-widest" data-lang="en">Gateway Execution Logic</h4>
+                            <h4 class="text-emerald-500 text-[10px] font-bold uppercase mb-4 tracking-widest" data-lang="zh">网关执行逻辑</h4>
+                            <pre class="bg-transparent p-0 text-emerald-400">
+<span class="text-slate-500">-- 1. Identify Prefix: "t88_" for this API Key
+-- 2. Rewrite SQL (Enforced Isolation):</span>
+CREATE TABLE IF NOT EXISTS `t88_inventory` (
+  id INT PRIMARY KEY,
+  item_name VARCHAR(100)
+);
+
+<span class="text-slate-500">-- 3. Final JSON Response:</span>
+{ "success": true, "data": [] }</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Case 2: Email Proxy -->
+                <div class="bg-slate-900 rounded-3xl shadow-2xl overflow-hidden">
+                    <div class="bg-slate-800 px-6 py-4 flex items-center justify-between border-b border-slate-700">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-3 h-3 rounded-full bg-purple-500"></div>
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Case 02: Verified Email Proxy</span>
+                        </div>
+                        <span class="px-2 py-0.5 rounded bg-purple-500/20 text-[10px] font-bold text-purple-400 uppercase">POST /email/send</span>
+                    </div>
+                    <div class="grid lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+                        <div class="p-8">
+                            <h4 class="text-slate-500 text-[10px] font-bold uppercase mb-4 tracking-widest" data-lang="en">Request Payload</h4>
+                            <h4 class="text-slate-500 text-[10px] font-bold uppercase mb-4 tracking-widest" data-lang="zh">请求负载</h4>
+                            <pre class="bg-transparent p-0 text-purple-300">
+{
+  "apiKey": "sk-tenant-88-prod",
+  "to": "customer@gmail.com",
+  "subject": "Order Confirmed #1024",
+  "html": "&lt;h1&gt;Thank you!&lt;/h1&gt;",
+  "from": "support@tenant88.com",
+  "fromName": "T88 Support"
+}</pre>
+                        </div>
+                        <div class="p-8 bg-slate-900/50 text-sm">
+                            <h4 class="text-purple-400 text-[10px] font-bold uppercase mb-4 tracking-widest" data-lang="en">Security Verification</h4>
+                            <h4 class="text-purple-400 text-[10px] font-bold uppercase mb-4 tracking-widest" data-lang="zh">安全校验逻辑</h4>
+                            <p class="text-slate-400 text-xs mb-4" data-lang="en">Gateway checks <code>vmail</code> DB to ensure sender is authorized for this tenant:</p>
+                            <p class="text-slate-400 text-xs mb-4" data-lang="zh">网关查询 <code>vmail</code> 数据库，确保该发件人已获得此租户授权：</p>
+                            <pre class="bg-slate-800 p-3 text-[11px] text-purple-200">
+SELECT username FROM mailbox 
+WHERE username = 'support@tenant88.com' 
+AND active = 1;</pre>
+                            <div class="mt-4 flex items-center text-emerald-500 text-[10px] font-bold">
+                                <i class="fa-solid fa-check-double mr-2"></i> Verified & SMTP Sent
                             </div>
                         </div>
                     </div>
@@ -220,86 +230,72 @@ SELECT * FROM `t99_users`
             </div>
         </section>
 
-        <!-- Security Powerhouse Section -->
+        <!-- Security Powerhouse -->
         <section id="security" class="mb-32 scroll-mt-24">
-            <h2 class="text-3xl font-extrabold mb-12 text-center" data-lang="en">Security Architecture & Zero Trust</h2>
-            <h2 class="text-3xl font-extrabold mb-12 text-center" data-lang="zh">安全架构与零信任防御</h2>
+            <h2 class="text-3xl font-extrabold mb-12 text-center">
+                <span data-lang="en">Zero Trust Defense Matrix</span>
+                <span data-lang="zh">零信任防御矩阵</span>
+            </h2>
             
-            <div class="grid lg:grid-cols-3 gap-8 mb-12">
+            <div class="grid lg:grid-cols-3 gap-8">
                 <!-- Threat 1 -->
-                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm flex flex-col h-full">
+                <div class="bg-white p-8 rounded-2xl border border-slate-200 flex flex-col h-full shadow-sm hover:shadow-md transition">
                     <div class="text-red-500 bg-red-50 w-12 h-12 rounded-xl flex items-center justify-center mb-6">
                         <i class="fa-solid fa-bug text-2xl"></i>
                     </div>
-                    <h3 class="font-black text-xl mb-4">
-                        <span data-lang="en">Scenario: Developer Mistake</span>
-                        <span data-lang="zh">场景：开发人员失误</span>
-                    </h3>
-                    <p class="text-slate-500 text-sm mb-8 flex-grow">
-                        <span data-lang="en">A developer forgets to add a <code>WHERE tenant_id = ?</code> filter in the application code, potentially leaking all tenants' data.</span>
-                        <span data-lang="zh">开发人员在编写代码时忘记在 SQL 中添加 <code>WHERE tenant_id = ?</code> 过滤条件，导致一个租户看到了所有公司的数据。</span>
-                    </p>
-                    <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-100">
-                        <p class="text-emerald-700 font-bold text-xs uppercase mb-2 tracking-widest"><i class="fa-solid fa-shield-check mr-2"></i>Our Defense</p>
-                        <p class="text-emerald-800 text-sm font-semibold" data-lang="en">SQL Virtualization forces the prefix at the gateway level. The developer *physically cannot* query across tenants.</p>
-                        <p class="text-emerald-800 text-sm font-semibold" data-lang="zh">SQL 虚拟化在网关层强制执行前缀注入。开发人员在物理上写不出能跨库查询的代码。</p>
+                    <div data-lang="en">
+                        <h3 class="font-black text-xl mb-4 text-slate-900">Developer Error</h3>
+                        <p class="text-slate-500 text-sm mb-8">Forgot a <code>WHERE</code> clause? In normal shared DBs, this leaks ALL tenant data.</p>
+                    </div>
+                    <div data-lang="zh">
+                        <h3 class="font-black text-xl mb-4 text-slate-900">开发者疏忽</h3>
+                        <p class="text-slate-500 text-sm mb-8">漏写了 <code>WHERE</code> 过滤条件？在普通共享库中，这会导致全库数据泄露。</p>
+                    </div>
+                    <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-100 mt-auto">
+                        <p class="text-emerald-700 font-bold text-[10px] uppercase mb-1 tracking-widest">Defense</p>
+                        <p class="text-emerald-800 text-xs font-semibold" data-lang="en">SQL Virtualization forces isolation at the network layer. Illegal queries are rewritten before execution.</p>
+                        <p class="text-emerald-800 text-xs font-semibold" data-lang="zh">SQL 虚拟化在网络层强制隔离。非法查询在执行前即被重写修正。</p>
                     </div>
                 </div>
 
                 <!-- Threat 2 -->
-                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm flex flex-col h-full">
+                <div class="bg-white p-8 rounded-2xl border border-slate-200 flex flex-col h-full shadow-sm hover:shadow-md transition">
                     <div class="text-red-500 bg-red-50 w-12 h-12 rounded-xl flex items-center justify-center mb-6">
                         <i class="fa-solid fa-user-secret text-2xl"></i>
                     </div>
-                    <h3 class="font-black text-xl mb-4">
-                        <span data-lang="en">Scenario: Direct DB Attack</span>
-                        <span data-lang="zh">场景：数据库直连攻击</span>
-                    </h3>
-                    <p class="text-slate-500 text-sm mb-8 flex-grow">
-                        <span data-lang="en">An external hacker discovers your origin database IP and attempts a brute-force login to your MariaDB/MySQL instance.</span>
-                        <span data-lang="zh">外部黑客发现了你后台数据库的真实 IP，并尝试直接暴力破解你的 MySQL 或 MariaDB 数据库。</span>
-                    </p>
-                    <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-100">
-                        <p class="text-emerald-700 font-bold text-xs uppercase mb-2 tracking-widest"><i class="fa-solid fa-shield-check mr-2"></i>Our Defense</p>
-                        <p class="text-emerald-800 text-sm font-semibold" data-lang="en">Cloudflare Zero Trust hides your origin. The DB only accepts connections from the Bridge's internal IP.</p>
-                        <p class="text-emerald-800 text-sm font-semibold" data-lang="zh">Cloudflare 零信任隐藏了真实源站。数据库仅接受网关内网 IP 的连接，拒绝任何公网访问。</p>
+                    <div data-lang="en">
+                        <h3 class="font-black text-xl mb-4 text-slate-900">Infrastructure Attack</h3>
+                        <p class="text-slate-500 text-sm mb-8">Hackers attempt to connect directly to your database IP using brute force.</p>
+                    </div>
+                    <div data-lang="zh">
+                        <h3 class="font-black text-xl mb-4 text-slate-900">基础设施攻击</h3>
+                        <p class="text-slate-500 text-sm mb-8">黑客尝试通过暴力破解直接连接您的数据库物理 IP。</p>
+                    </div>
+                    <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-100 mt-auto">
+                        <p class="text-emerald-700 font-bold text-[10px] uppercase mb-1 tracking-widest">Defense</p>
+                        <p class="text-emerald-800 text-xs font-semibold" data-lang="en">Zero Trust Perimeter. DB only talks to the Bridge internal IP. Origin IP is hidden via Cloudflare.</p>
+                        <p class="text-emerald-800 text-xs font-semibold" data-lang="zh">零信任边界。数据库仅与网关内网通信。真实 IP 已通过 Cloudflare 彻底隐藏。</p>
                     </div>
                 </div>
 
                 <!-- Threat 3 -->
-                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm flex flex-col h-full">
+                <div class="bg-white p-8 rounded-2xl border border-slate-200 flex flex-col h-full shadow-sm hover:shadow-md transition">
                     <div class="text-red-500 bg-red-50 w-12 h-12 rounded-xl flex items-center justify-center mb-6">
                         <i class="fa-solid fa-skull-crossbones text-2xl"></i>
                     </div>
-                    <h3 class="font-black text-xl mb-4">
-                        <span data-lang="en">Scenario: Gateway Hijack</span>
-                        <span data-lang="zh">场景：网关遭遇劫持</span>
-                    </h3>
-                    <p class="text-slate-500 text-sm mb-8 flex-grow">
-                        <span data-lang="en">An attacker compromises the VirtualDB-Bridge server and attempts to issue queries to another tenant's prefixed tables.</span>
-                        <span data-lang="zh">黑客攻破了网关服务器，并尝试利用网关的权限直接发送 SQL 指令去查询其他租户的前缀表。</span>
-                    </p>
-                    <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-100">
-                        <p class="text-emerald-700 font-bold text-xs uppercase mb-2 tracking-widest"><i class="fa-solid fa-shield-check mr-2"></i>Our Defense</p>
-                        <p class="text-emerald-800 text-sm font-semibold" data-lang="en">DB Wildcard Permissions. The DB engine rejects the request because the user is only allowed to touch <code>tenantA_%</code>.</p>
-                        <p class="text-emerald-800 text-sm font-semibold" data-lang="zh">数据库通配符权限。数据库引擎会直接拒绝请求，因为该账号被限制只能操作 <code>tenantA_%</code>。</p>
+                    <div data-lang="en">
+                        <h3 class="font-black text-xl mb-4 text-slate-900">Compromised Logic</h3>
+                        <p class="text-slate-500 text-sm mb-8">Even if an attacker hijacks the Gateway code, they attempt cross-prefix access.</p>
                     </div>
-                </div>
-            </div>
-
-            <div class="bg-white p-10 rounded-3xl shadow-sm border border-slate-100">
-                <div class="mermaid">
-                    graph LR
-                        U((Internet User)) -->|1. TLS 1.3| CF[Cloudflare Edge]
-                        subgraph Security [Zero Trust Perimeter]
-                            CF -->|2. Service Token| JWT{JWT Verified}
-                            JWT -->|3. API Key| API{Identity Matched}
-                        end
-                        API -->|4. Logic Correct| RW[SQL Virtualizer]
-                        RW -->|5. Prefix Forced| DB[(Restricted DB Instance)]
-                        
-                        style Security fill:#f8fafc,stroke:#3b82f6,stroke-width:2px
-                        style DB fill:#f0fdfa,stroke:#0d9488
+                    <div data-lang="zh">
+                        <h3 class="font-black text-xl mb-4 text-slate-900">逻辑层沦陷</h3>
+                        <p class="text-slate-500 text-sm mb-8">即便攻击者劫持了网关代码并尝试发起跨前缀访问。</p>
+                    </div>
+                    <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-100 mt-auto">
+                        <p class="text-emerald-700 font-bold text-[10px] uppercase mb-1 tracking-widest">Defense</p>
+                        <p class="text-emerald-800 text-xs font-semibold" data-lang="en">DB Wildcard Permissions. The DB engine rejects the request as the user only owns <code>tenantA_%</code>.</p>
+                        <p class="text-emerald-800 text-xs font-semibold" data-lang="zh">数据库通配符权限。数据库引擎会直接拒绝，因为该账号物理上仅拥有 <code>tenantA_%</code> 权限。</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -307,17 +303,17 @@ SELECT * FROM `t99_users`
         <!-- Setup Wizard -->
         <section id="setup" class="mb-32 scroll-mt-24">
             <h2 class="text-3xl font-extrabold mb-12 text-center">
-                <span data-lang="en">Production Deployment in 3 Steps</span>
-                <span data-lang="zh">三步开启生产环境部署</span>
+                <span data-lang="en">3-Step Production Deployment</span>
+                <span data-lang="zh">三步开启生产部署</span>
             </h2>
             <div class="grid lg:grid-cols-3 gap-8">
                 <!-- Step 1 -->
                 <div class="bg-white p-8 rounded-2xl step-card">
-                    <div class="text-blue-600 font-black text-4xl mb-6 opacity-20 tracking-tighter">STEP 01</div>
-                    <h3 class="font-extrabold text-xl mb-4" data-lang="en">DB Level Restriction</h3>
-                    <h3 class="font-extrabold text-xl mb-4" data-lang="zh">底层数据库权限限制</h3>
-                    <p class="text-slate-500 text-sm mb-6" data-lang="en">Use wildcard patterns to ensure each DB user can only see their own tenant prefix.</p>
-                    <p class="text-slate-500 text-sm mb-6" data-lang="zh">使用通配符模式，确保数据库用户仅能操作属于其租户前缀的库。</p>
+                    <div class="text-blue-600 font-black text-4xl mb-6 opacity-20 tracking-tighter">01</div>
+                    <h3 class="font-extrabold text-xl mb-4" data-lang="en">Restricted Auth</h3>
+                    <h3 class="font-extrabold text-xl mb-4" data-lang="zh">底层授权</h3>
+                    <p class="text-slate-500 text-sm mb-6" data-lang="en">Grant specific prefix access to your database user.</p>
+                    <p class="text-slate-500 text-sm mb-6" data-lang="zh">为数据库用户授予特定的前缀访问权限。</p>
                     <pre>
 GRANT ALL PRIVILEGES 
 ON `tenantA\_%`.* 
@@ -325,27 +321,26 @@ TO 'bridge'@'%';</pre>
                 </div>
                 <!-- Step 2 -->
                 <div class="bg-white p-8 rounded-2xl step-card">
-                    <div class="text-blue-600 font-black text-4xl mb-6 opacity-20 tracking-tighter">STEP 02</div>
-                    <h3 class="font-extrabold text-xl mb-4" data-lang="en">Zero Trust Identity</h3>
-                    <h3 class="font-extrabold text-xl mb-4" data-lang="zh">零信任身份认证</h3>
-                    <p class="text-slate-500 text-sm mb-6" data-lang="en">Configure Cloudflare Access and generate a Service Token for your application.</p>
-                    <p class="text-slate-500 text-sm mb-6" data-lang="zh">配置 Cloudflare Access 并为你的客户端生成专属的 Service Token。</p>
-                    <ul class="text-xs text-blue-600 font-bold space-y-2">
-                        <li><i class="fa-solid fa-check mr-2"></i> Save Client ID & Secret</li>
-                        <li><i class="fa-solid fa-check mr-2"></i> Get Audience Tag</li>
+                    <div class="text-blue-600 font-black text-4xl mb-6 opacity-20 tracking-tighter">02</div>
+                    <h3 class="font-extrabold text-xl mb-4" data-lang="en">Zero Trust</h3>
+                    <h3 class="font-extrabold text-xl mb-4" data-lang="zh">零信任配置</h3>
+                    <p class="text-slate-500 text-sm mb-6" data-lang="en">Set up Cloudflare Access and Service Tokens.</p>
+                    <p class="text-slate-500 text-sm mb-6" data-lang="zh">设置 Cloudflare Access 和服务令牌。</p>
+                    <ul class="text-[10px] text-blue-600 font-bold space-y-1">
+                        <li><i class="fa-solid fa-check mr-2"></i> Save Client ID/Secret</li>
+                        <li><i class="fa-solid fa-check mr-2"></i> Record Audience Tag</li>
                     </ul>
                 </div>
                 <!-- Step 3 -->
                 <div class="bg-white p-8 rounded-2xl step-card">
-                    <div class="text-blue-600 font-black text-4xl mb-6 opacity-20 tracking-tighter">STEP 03</div>
-                    <h3 class="font-extrabold text-xl mb-4" data-lang="en">Launch Gateway</h3>
-                    <h3 class="font-extrabold text-xl mb-4" data-lang="zh">启动网关服务</h3>
-                    <p class="text-slate-500 text-sm mb-6" data-lang="en">Update your <code>.env</code> file with the collected keys and start the Node.js server.</p>
-                    <p class="text-slate-500 text-sm mb-6" data-lang="zh">将获取的密钥填入 <code>.env</code> 文件并启动 Node.js 服务器。</p>
+                    <div class="text-blue-600 font-black text-4xl mb-6 opacity-20 tracking-tighter">03</div>
+                    <h3 class="font-extrabold text-xl mb-4" data-lang="en">Launch</h3>
+                    <h3 class="font-extrabold text-xl mb-4" data-lang="zh">服务启动</h3>
+                    <p class="text-slate-500 text-sm mb-6" data-lang="en">Configure <code>.env</code> and start your secure gateway.</p>
+                    <p class="text-slate-500 text-sm mb-6" data-lang="zh">配置 <code>.env</code> 并启动安全网关。</p>
                     <pre>
-PORT=3002
 DB_PASS=*******
-CF_AUDIENCE_TAG=xxxx
+CF_TAG=xxxx
 npm start</pre>
                 </div>
             </div>
@@ -353,20 +348,12 @@ npm start</pre>
 
     </main>
 
-    <!-- Footer -->
     <footer class="bg-slate-900 text-white py-20 mt-20">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-8 mb-12">
-                <a href="https://github.com/forpersuit/VirtualDB-Bridge" class="text-slate-400 hover:text-white transition text-3xl"><i class="fa-brands fa-github"></i></a>
-                <a href="#" class="text-slate-400 hover:text-white transition text-3xl"><i class="fa-brands fa-twitter"></i></a>
-                <a href="#" class="text-slate-400 hover:text-white transition text-3xl"><i class="fa-solid fa-envelope"></i></a>
-            </div>
-            <p class="text-slate-500 text-sm font-medium">© 2026 VirtualDB-Bridge Open Source Project. Documentation licensed under ISC.</p>
-            <p class="text-slate-700 text-xs mt-4">Security Infrastructure powered by Cloudflare Zero Trust & TLS 1.3 Encryption.</p>
+            <p class="text-slate-500 text-sm font-medium">© 2026 VirtualDB-Bridge Open Source Project. Licensed under ISC.</p>
         </div>
     </footer>
 
-    <!-- Auto-detection & Lang Logic -->
     <script>
         function toggleLang(forcedLang) {
             const body = document.body;
@@ -388,18 +375,6 @@ npm start</pre>
                 toggleLang(userLang.startsWith('zh') ? 'zh' : 'en');
             }
         };
-    </script>
-    
-    <!-- SEO Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "VirtualDB-Bridge",
-      "applicationCategory": "Security, Database Proxy",
-      "operatingSystem": "Linux, Docker",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-    }
     </script>
 </body>
 </html>
