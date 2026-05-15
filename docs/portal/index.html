@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VirtualDB-Bridge | 虚拟工作空间网关控制台</title>
+    <title>VirtualDB-Bridge | Multi-tenant Database & Email Gateway</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
@@ -18,9 +18,14 @@
         }
         .step-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
         pre { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; }
+        [data-lang] { display: none; }
+        .lang-en [data-lang="en"] { display: block; }
+        .lang-en [data-lang-inline="en"] { display: inline; }
+        .lang-zh [data-lang="zh"] { display: block; }
+        .lang-zh [data-lang-inline="zh"] { display: inline; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-sans leading-relaxed">
+<body class="bg-slate-50 text-slate-900 font-sans leading-relaxed lang-en">
 
     <!-- Header -->
     <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
@@ -30,13 +35,22 @@
                 <span class="text-xl font-bold tracking-tight">VirtualDB-Bridge</span>
             </div>
             <nav class="hidden md:flex space-x-8 text-sm font-medium text-slate-600">
-                <a href="#concept" class="hover:text-blue-600">核心架构</a>
-                <a href="#setup" class="hover:text-blue-600">部署指南</a>
-                <a href="#api" class="hover:text-blue-600">API 参考</a>
+                <a href="#concept" data-lang="en">Architecture</a>
+                <a href="#concept" data-lang="zh">核心架构</a>
+                <a href="#setup" data-lang="en">Deployment</a>
+                <a href="#setup" data-lang="zh">部署指南</a>
+                <a href="#api" data-lang="en">API Reference</a>
+                <a href="#api" data-lang="zh">API 参考</a>
             </nav>
-            <a href="https://github.com/forpersuit/VirtualDB-Bridge" class="bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-800 transition">
-                <i class="fa-brands fa-github mr-2"></i>GitHub
-            </a>
+            <div class="flex items-center space-x-4">
+                <button onclick="toggleLang()" class="text-sm font-bold text-blue-600 border border-blue-600 px-3 py-1 rounded hover:bg-blue-50 transition">
+                    <span data-lang="en">中文</span>
+                    <span data-lang="zh">English</span>
+                </button>
+                <a href="https://github.com/forpersuit/VirtualDB-Bridge" class="bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-800 transition">
+                    <i class="fa-brands fa-github mr-2"></i>GitHub
+                </a>
+            </div>
         </div>
     </header>
 
@@ -44,53 +58,84 @@
         
         <!-- Hero Section -->
         <section class="text-center mb-20">
-            <h1 class="text-5xl font-extrabold mb-6 tracking-tight">让多租户数据库开发<br><span class="gradient-text">像操作单机实例一样简单</span></h1>
+            <h1 class="text-5xl font-extrabold mb-6 tracking-tight">
+                <span data-lang="en">Multi-tenant Development<br><span class="gradient-text">Made Transparent</span></span>
+                <span data-lang="zh">让多租户数据库开发<br><span class="gradient-text">像操作单机实例一样简单</span></span>
+            </h1>
             <p class="text-xl text-slate-600 max-w-3xl mx-auto mb-10">
-                VirtualDB-Bridge 是一个高性能的 SQL 虚拟化网关。它通过透明的 SQL 重写技术，为每个租户提供完全隔离的虚拟库空间，同时集成了 Cloudflare 边缘级安全防护与邮件代发服务。
+                <span data-lang="en">VirtualDB-Bridge is a high-performance SQL virtualization gateway. It provides isolated virtual database spaces for each tenant through transparent SQL rewriting, integrated with Cloudflare Access and Email Proxy.</span>
+                <span data-lang="zh">VirtualDB-Bridge 是一个高性能的 SQL 虚拟化网关。它通过透明的 SQL 重写技术，为每个租户提供完全隔离的虚拟库空间，同时集成了 Cloudflare 边缘级安全防护与邮件代发服务。</span>
             </p>
             <div class="flex justify-center space-x-4">
-                <a href="#setup" class="bg-blue-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-blue-700 shadow-lg shadow-blue-200 transition">立即开始部署</a>
-                <a href="#concept" class="bg-white border border-slate-200 px-8 py-3 rounded-full font-semibold hover:bg-slate-50 transition">了解原理</a>
+                <a href="#setup" class="bg-blue-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-blue-700 shadow-lg shadow-blue-200 transition">
+                    <span data-lang="en">Deploy Now</span>
+                    <span data-lang="zh">立即开始部署</span>
+                </a>
+                <a href="#concept" class="bg-white border border-slate-200 px-8 py-3 rounded-full font-semibold hover:bg-slate-50 transition">
+                    <span data-lang="en">How it Works</span>
+                    <span data-lang="zh">了解原理</span>
+                </a>
             </div>
         </section>
 
         <!-- Concept: Mermaid Diagram -->
         <section id="concept" class="mb-24">
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
-                <h2 class="text-3xl font-bold mb-8 text-center">透明虚拟化原理</h2>
+                <h2 class="text-3xl font-bold mb-8 text-center">
+                    <span data-lang="en">Transparent Virtualization Principle</span>
+                    <span data-lang="zh">透明虚拟化原理</span>
+                </h2>
                 <div class="grid md:grid-cols-2 gap-12 items-center">
                     <div>
                         <div class="mermaid">
                             graph TD
-                                A[开发者/客户端] -->|POST SQL: CREATE DATABASE mydb| B(VirtualDB-Bridge)
-                                B -->|身份验证: Cloudflare JWT| C{API Key 校验}
-                                C -->|成功| D[SQL 重写引擎]
-                                D -->|mydb -> tenantA_mydb| E[(共享数据库集群)]
-                                E -->|返回结果| D
-                                D -->|抹除前缀| B
-                                B -->|JSON 响应| A
+                                A[Client] -->|POST SQL: CREATE DATABASE mydb| B(VirtualDB-Bridge)
+                                B -->|Auth: Cloudflare JWT| C{API Key Check}
+                                C -->|Success| D[SQL Rewrite Engine]
+                                D -->|mydb -> tenant1_mydb| E[(Shared DB Cluster)]
+                                E -->|Result| D
+                                D -->|Strip Prefix| B
+                                B -->|JSON Response| A
                         </div>
                     </div>
                     <div class="space-y-6">
                         <div class="flex items-start space-x-4">
                             <div class="bg-blue-100 p-2 rounded-lg text-blue-600"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
                             <div>
-                                <h3 class="font-bold text-lg">SQL 透明重写</h3>
-                                <p class="text-slate-600 text-sm">自动处理 CREATE, DROP, USE 以及 `db.table` 语法。开发者无需在代码中手动管理复杂的租户前缀。</p>
+                                <h3 class="font-bold text-lg">
+                                    <span data-lang="en">SQL Transparent Rewriting</span>
+                                    <span data-lang="zh">SQL 透明重写</span>
+                                </h3>
+                                <p class="text-slate-600 text-sm">
+                                    <span data-lang="en">Automatically handles CREATE, DROP, USE, and qualified table names. No manual prefix management in your code.</span>
+                                    <span data-lang="zh">自动处理 CREATE, DROP, USE 以及 `db.table` 语法。开发者无需在代码中手动管理复杂的租户前缀。</span>
+                                </p>
                             </div>
                         </div>
                         <div class="flex items-start space-x-4">
                             <div class="bg-teal-100 p-2 rounded-lg text-teal-600"><i class="fa-solid fa-shield-halved"></i></div>
                             <div>
-                                <h3 class="font-bold text-lg">边缘级安全</h3>
-                                <p class="text-slate-600 text-sm">利用 Cloudflare Access 拦截非授权请求，双重复合认证确保数据资产万无一失。</p>
+                                <h3 class="font-bold text-lg">
+                                    <span data-lang="en">Edge Security</span>
+                                    <span data-lang="zh">边缘级安全</span>
+                                </h3>
+                                <p class="text-slate-600 text-sm">
+                                    <span data-lang="en">Leverage Cloudflare Access to block unauthorized requests. Double-layer auth keeps data safe.</span>
+                                    <span data-lang="zh">利用 Cloudflare Access 拦截非授权请求，双重复合认证确保数据资产万无一失。</span>
+                                </p>
                             </div>
                         </div>
                         <div class="flex items-start space-x-4">
                             <div class="bg-purple-100 p-2 rounded-lg text-purple-600"><i class="fa-solid fa-envelope-open-text"></i></div>
                             <div>
-                                <h3 class="font-bold text-lg">统一邮件代理</h3>
-                                <p class="text-slate-600 text-sm">内置 Nodemailer 代理，支持租户级的发件人校验，简化微服务下的邮件发送逻辑。</p>
+                                <h3 class="font-bold text-lg">
+                                    <span data-lang="en">Unified Email Proxy</span>
+                                    <span data-lang="zh">统一邮件代理</span>
+                                </h3>
+                                <p class="text-slate-600 text-sm">
+                                    <span data-lang="en">Integrated Nodemailer with tenant-level sender verification. Simplifies email logic in microservices.</span>
+                                    <span data-lang="zh">内置 Nodemailer 代理，支持租户级的发件人校验，简化微服务下的邮件发送逻辑。</span>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -100,58 +145,143 @@
 
         <!-- Setup Wizard -->
         <section id="setup" class="mb-24">
-            <h2 class="text-3xl font-bold mb-12 text-center">三步完成生产部署</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Step 1 -->
-                <div class="bg-white p-6 rounded-xl border border-slate-100 step-card">
-                    <div class="text-blue-600 font-black text-4xl mb-4 opacity-20">01</div>
-                    <h3 class="font-bold text-xl mb-4">底层数据库授权</h3>
-                    <p class="text-slate-600 text-sm mb-6">在 MariaDB/MySQL 中创建一个“受限管理员”账户，仅允许其操作特定前缀的库。</p>
-                    <pre class="text-xs">
--- 允许操作所有以 tenant1_ 开头的库
-GRANT ALL PRIVILEGES ON `tenant1\_%`.* 
+            <h2 class="text-3xl font-bold mb-12 text-center">
+                <span data-lang="en">Detailed Production Deployment</span>
+                <span data-lang="zh">详细生产部署指南</span>
+            </h2>
+            <div class="space-y-8">
+                <!-- Step 1: Database -->
+                <div class="bg-white p-8 rounded-xl border border-slate-100 shadow-sm">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold mr-4 shadow-lg shadow-blue-100">1</div>
+                        <h3 class="font-bold text-2xl">
+                            <span data-lang="en">Database Permission Pattern</span>
+                            <span data-lang="zh">数据库权限配置</span>
+                        </h3>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <p class="text-slate-600 mb-4">
+                                <span data-lang="en">Create a restricted user in MariaDB/MySQL. This user should only have permissions on databases that start with the tenant's prefix.</span>
+                                <span data-lang="zh">在 MariaDB/MySQL 中创建一个受限用户。该用户应仅拥有对以租户前缀开头的数据库的操作权限。</span>
+                            </p>
+                            <ul class="text-sm text-slate-600 space-y-2 list-disc ml-5">
+                                <li data-lang="en">Prevents tenants from accessing each other's data even if the proxy fails.</li>
+                                <li data-lang="zh">即便网关失效，也能防止租户越权访问其他租户的数据。</li>
+                                <li data-lang="en">Uses wildcard <code>\_%</code> to match only the intended prefix.</li>
+                                <li data-lang="zh">使用通配符 <code>\_%</code> 来严格匹配指定前缀。</li>
+                            </ul>
+                        </div>
+                        <pre class="text-xs">
+-- Run this for each tenant prefix
+GRANT ALL PRIVILEGES ON `tenantA\_%`.* 
 TO 'bridge_user'@'%' 
 IDENTIFIED BY 'secure_password';
 FLUSH PRIVILEGES;</pre>
+                    </div>
                 </div>
-                <!-- Step 2 -->
-                <div class="bg-white p-6 rounded-xl border border-slate-100 step-card">
-                    <div class="text-blue-600 font-black text-4xl mb-4 opacity-20">02</div>
-                    <h3 class="font-bold text-xl mb-4">Cloudflare 配置</h3>
-                    <p class="text-slate-600 text-sm mb-6">在 Zero Trust 控制台中为网关域名添加 Access 策略，并生成 Service Token。</p>
-                    <ul class="text-sm text-slate-600 space-y-2">
-                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i>记录 <strong>Audience Tag</strong></li>
-                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i>记录 <strong>Team Domain</strong></li>
-                    </ul>
+
+                <!-- Step 2: Cloudflare -->
+                <div class="bg-white p-8 rounded-xl border border-slate-100 shadow-sm">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold mr-4 shadow-lg shadow-blue-100">2</div>
+                        <h3 class="font-bold text-2xl">
+                            <span data-lang="en">Cloudflare Zero Trust Setup</span>
+                            <span data-lang="zh">Cloudflare Zero Trust 配置</span>
+                        </h3>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <i class="fa-solid fa-circle-check text-blue-500 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-bold" data-lang="en">Service Token</h4>
+                                    <h4 class="font-bold" data-lang="zh">服务令牌</h4>
+                                    <p class="text-sm text-slate-500" data-lang="en">Access -> Service Tokens -> Create. Save Client ID and Secret.</p>
+                                    <p class="text-sm text-slate-500" data-lang="zh">访问 Access -> Service Tokens -> Create。保存 Client ID 和 Secret。</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fa-solid fa-circle-check text-blue-500 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-bold" data-lang="en">Access Application</h4>
+                                    <h4 class="font-bold" data-lang="zh">Access 应用程序</h4>
+                                    <p class="text-sm text-slate-500" data-lang="en">Add application -> Self-hosted. Enter your domain.</p>
+                                    <p class="text-sm text-slate-500" data-lang="zh">Add application -> Self-hosted。输入您的网关域名。</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fa-solid fa-circle-check text-blue-500 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-bold" data-lang="en">Access Policy</h4>
+                                    <h4 class="font-bold" data-lang="zh">Access 策略</h4>
+                                    <p class="text-sm text-slate-500" data-lang="en">Create policy -> Action: Service Auth. Include: Service Token.</p>
+                                    <p class="text-sm text-slate-500" data-lang="zh">Create policy -> Action: Service Auth。Include: 选择刚才创建的 Service Token。</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                            <h4 class="font-bold mb-2 text-sm" data-lang="en">Required Info for .env</h4>
+                            <h4 class="font-bold mb-2 text-sm" data-lang="zh">.env 必需信息</h4>
+                            <ul class="text-xs text-slate-600 space-y-2">
+                                <li><strong>Team Domain:</strong> <code>https://your-team.cloudflareaccess.com</code></li>
+                                <li><strong>Audience Tag:</strong> <span data-lang="en">Found in App settings overview.</span><span data-lang="zh">在应用程序设置的 Overview 中查看。</span></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <!-- Step 3 -->
-                <div class="bg-white p-6 rounded-xl border border-slate-100 step-card">
-                    <div class="text-blue-600 font-black text-4xl mb-4 opacity-20">03</div>
-                    <h3 class="font-bold text-xl mb-4">环境变量加载</h3>
-                    <p class="text-slate-600 text-sm mb-6">配置项目根目录下的 <code>.env</code> 文件，填入上述步骤获取的密钥。</p>
-                    <pre class="text-xs">
+
+                <!-- Step 3: Server Config -->
+                <div class="bg-white p-8 rounded-xl border border-slate-100 shadow-sm">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold mr-4 shadow-lg shadow-blue-100">3</div>
+                        <h3 class="font-bold text-2xl">
+                            <span data-lang="en">Gateway Configuration</span>
+                            <span data-lang="zh">网关环境变量配置</span>
+                        </h3>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <p class="text-slate-600 mb-4" data-lang="en">Clone the repo and configure your <code>.env</code> and <code>tenants.json</code>.</p>
+                            <p class="text-slate-600 mb-4" data-lang="zh">克隆仓库并配置 <code>.env</code> 和 <code>tenants.json</code>。</p>
+                            <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
+                                <h4 class="font-bold text-blue-800 text-sm mb-2" data-lang="en">Security Note</h4>
+                                <h4 class="font-bold text-blue-800 text-sm mb-2" data-lang="zh">安全提示</h4>
+                                <p class="text-xs text-blue-700" data-lang="en">Never commit your <code>.env</code> file. The gateway uses double-layer auth: Cloudflare Service Token (Header) + API Key (Body).</p>
+                                <p class="text-xs text-blue-700" data-lang="zh">严禁提交 <code>.env</code> 文件。网关采用双重认证：Cloudflare Service Token (Header) + API Key (Body)。</p>
+                            </div>
+                        </div>
+                        <pre class="text-xs">
+# .env template
 PORT=3002
 DB_PASS=secure_password
+SMTP_PASS=smtp_password
 CF_AUDIENCE_TAG=your_tag
 CF_TEAM_DOMAIN=https://xxx.cloudflareaccess.com</pre>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- API Playground Preview -->
+        <!-- API Reference -->
         <section id="api" class="mb-24">
-            <h2 class="text-3xl font-bold mb-12 text-center">API 使用示例</h2>
+            <h2 class="text-3xl font-bold mb-12 text-center">
+                <span data-lang="en">API Reference & Examples</span>
+                <span data-lang="zh">API 参考与示例</span>
+            </h2>
             
             <div class="space-y-12">
                 <!-- DB API -->
                 <div class="bg-slate-900 rounded-2xl p-1 overflow-hidden shadow-2xl">
                     <div class="flex items-center space-x-2 px-4 py-3 bg-slate-800 border-b border-slate-700">
                         <div class="w-3 h-3 rounded-full bg-blue-500"></div>
-                        <span class="text-slate-400 text-xs ml-4">POST /query (数据库操作)</span>
+                        <span class="text-slate-400 text-xs ml-4" data-lang="en">POST /query (Database)</span>
+                        <span class="text-slate-400 text-xs ml-4" data-lang="zh">POST /query (数据库操作)</span>
                     </div>
                     <div class="grid md:grid-cols-2 gap-px bg-slate-700">
                         <div class="bg-slate-900 p-6">
-                            <h4 class="text-slate-400 text-xs font-bold uppercase mb-4 tracking-widest">请求参数</h4>
+                            <h4 class="text-slate-400 text-xs font-bold uppercase mb-4 tracking-widest" data-lang="en">Request Body</h4>
+                            <h4 class="text-slate-400 text-xs font-bold uppercase mb-4 tracking-widest" data-lang="zh">请求体</h4>
                             <pre class="text-sm">
 {
   "apiKey": "sk_test_...",
@@ -160,8 +290,10 @@ CF_TEAM_DOMAIN=https://xxx.cloudflareaccess.com</pre>
 }</pre>
                         </div>
                         <div class="bg-slate-900 p-6">
-                            <h4 class="text-slate-400 text-xs font-bold uppercase mb-4 tracking-widest">重写逻辑</h4>
-                            <p class="text-blue-400 text-xs mb-2">自动映射至租户前缀数据库：</p>
+                            <h4 class="text-slate-400 text-xs font-bold uppercase mb-4 tracking-widest" data-lang="en">Virtualization Result</h4>
+                            <h4 class="text-slate-400 text-xs font-bold uppercase mb-4 tracking-widest" data-lang="zh">虚拟化结果</h4>
+                            <p class="text-blue-400 text-xs mb-2" data-lang="en">Automatically mapped to tenant prefix:</p>
+                            <p class="text-blue-400 text-xs mb-2" data-lang="zh">自动映射至租户前缀数据库：</p>
                             <pre class="text-sm text-blue-300">
 CREATE TABLE `tenantA_users` (id INT)</pre>
                         </div>
@@ -172,24 +304,28 @@ CREATE TABLE `tenantA_users` (id INT)</pre>
                 <div class="bg-slate-900 rounded-2xl p-1 overflow-hidden shadow-2xl">
                     <div class="flex items-center space-x-2 px-4 py-3 bg-slate-800 border-b border-slate-700">
                         <div class="w-3 h-3 rounded-full bg-purple-500"></div>
-                        <span class="text-slate-400 text-xs ml-4">POST /email/send (邮件代发)</span>
+                        <span class="text-slate-400 text-xs ml-4" data-lang="en">POST /email/send (Email Proxy)</span>
+                        <span class="text-slate-400 text-xs ml-4" data-lang="zh">POST /email/send (邮件代发)</span>
                     </div>
                     <div class="grid md:grid-cols-2 gap-px bg-slate-700">
                         <div class="bg-slate-900 p-6">
-                            <h4 class="text-slate-400 text-xs font-bold uppercase mb-4 tracking-widest">请求参数</h4>
+                            <h4 class="text-slate-400 text-xs font-bold uppercase mb-4 tracking-widest" data-lang="en">Request Body</h4>
+                            <h4 class="text-slate-400 text-xs font-bold uppercase mb-4 tracking-widest" data-lang="zh">请求体</h4>
                             <pre class="text-sm">
 {
   "apiKey": "sk_test_...",
   "to": "customer@email.com",
-  "subject": "验证码",
-  "html": "<p>您的验证码是 1234</p>",
+  "subject": "Verification Code",
+  "html": "<p>Code: 1234</p>",
   "from": "verify@yourdomain.com",
-  "fromName": "安全中心"
+  "fromName": "Security"
 }</pre>
                         </div>
                         <div class="bg-slate-900 p-6">
-                            <h4 class="text-slate-400 text-xs font-bold uppercase mb-4 tracking-widest">发件人校验 (vmail 逻辑)</h4>
-                            <p class="text-slate-400 text-xs mb-2">网关会自动校验 `from` 地址是否在您的 vmail 数据库中已启用：</p>
+                            <h4 class="text-slate-400 text-xs font-bold uppercase mb-4 tracking-widest" data-lang="en">Sender Verification</h4>
+                            <h4 class="text-slate-400 text-xs font-bold uppercase mb-4 tracking-widest" data-lang="zh">发件人校验</h4>
+                            <p class="text-slate-400 text-xs mb-2" data-lang="en">Verifies sender against <code>vmail.mailbox</code> table:</p>
+                            <p class="text-slate-400 text-xs mb-2" data-lang="zh">网关会校验 <code>from</code> 地址是否在 vmail 中已启用：</p>
                             <pre class="text-xs text-purple-300">
 SELECT username FROM mailbox 
 WHERE username = 'verify@yourdomain.com' 
@@ -209,5 +345,26 @@ AND active = 1;</pre>
         </div>
     </footer>
 
+    <script>
+        function toggleLang() {
+            const body = document.body;
+            if (body.classList.contains('lang-en')) {
+                body.classList.remove('lang-en');
+                body.classList.add('lang-zh');
+                localStorage.setItem('lang', 'zh');
+            } else {
+                body.classList.remove('lang-zh');
+                body.classList.add('lang-en');
+                localStorage.setItem('lang', 'en');
+            }
+        }
+        
+        // Persist language preference
+        const savedLang = localStorage.getItem('lang');
+        if (savedLang === 'zh') {
+            document.body.classList.remove('lang-en');
+            document.body.classList.add('lang-zh');
+        }
+    </script>
 </body>
 </html>

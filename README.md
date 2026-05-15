@@ -131,6 +131,23 @@ Maps API Keys to tenant prefixes. Can be updated dynamically without restarting 
     "fromName": "System Alert"
   }
   ```
+- **Sender Verification**: The gateway connects to a `vmail` database to verify if the `from` address is active in the `mailbox` table. If it's missing or inactive, the request is rejected with a 400 error.
+
+## Advanced Production Setup
+
+### Database Permissions
+To ensure true isolation, use the following SQL pattern to grant access to the gateway user:
+```sql
+-- Grant access to all databases starting with 'tenant1_'
+GRANT ALL PRIVILEGES ON `tenant1\_%`.* TO 'gateway_user'@'%' IDENTIFIED BY 'your_secure_password';
+FLUSH PRIVILEGES;
+```
+
+### Cloudflare Access
+1. Create a **Service Token** in Cloudflare Zero Trust.
+2. Add an **Access Application** for your bridge domain.
+3. Create a **Policy** that allows the Service Token to access the application.
+4. Note the **Audience Tag** and **Team Domain** for your `.env` file.
 
 ## Security Best Practices
 - **Always use Parameterized Queries**: Do not concatenate variables directly into the `sql` string. Use the `params` array.
