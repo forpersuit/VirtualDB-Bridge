@@ -138,17 +138,161 @@
                     </div>
                 </div>
             </div>
+        <!-- Standardized API Specification -->
+        <section id="api-spec" class="mb-32 scroll-mt-24">
+            <h2 class="text-3xl font-extrabold mb-12 text-center">
+                <span data-lang="en">Full API Specification</span>
+                <span data-lang="zh">完整 API 技术规范</span>
+            </h2>
+
+            <!-- Shared Auth Section -->
+            <div class="bg-blue-900 text-white p-6 rounded-t-2xl border-x border-t border-blue-800">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-solid fa-key"></i>
+                    <h3 class="font-bold uppercase tracking-widest text-xs" data-lang="en">Global Authentication Headers</h3>
+                    <h3 class="font-bold uppercase tracking-widest text-xs" data-lang="zh">全局身份验证请求头</h3>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-b-2xl border border-slate-200 shadow-sm mb-12 overflow-x-auto">
+                <table class="w-full text-sm text-left">
+                    <thead class="text-slate-400 uppercase text-[10px] font-black border-b border-slate-100">
+                        <tr>
+                            <th class="pb-4">Header</th>
+                            <th class="pb-4">Type</th>
+                            <th class="pb-4">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-50">
+                        <tr>
+                            <td class="py-4 font-mono text-blue-600 font-bold">CF-Access-Client-Id</td>
+                            <td class="py-4 text-slate-400">String</td>
+                            <td class="py-4 text-slate-600" data-lang="en">Cloudflare Zero Trust Service Token ID.</td>
+                            <td class="py-4 text-slate-600" data-lang="zh">Cloudflare Zero Trust 服务令牌 ID。</td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 font-mono text-blue-600 font-bold">CF-Access-Client-Secret</td>
+                            <td class="py-4 text-slate-400">String</td>
+                            <td class="py-4 text-slate-600" data-lang="en">Cloudflare Zero Trust Service Token Secret.</td>
+                            <td class="py-4 text-slate-600" data-lang="zh">Cloudflare Zero Trust 服务令牌密钥。</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- API Endpoint: Query -->
+            <div class="space-y-16">
+                <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+                    <div class="p-8 border-b border-slate-100 bg-slate-50/50">
+                        <div class="flex items-center space-x-4 mb-4">
+                            <span class="bg-blue-600 text-white text-[10px] font-black px-2 py-1 rounded tracking-widest uppercase">POST</span>
+                            <code class="text-lg font-bold text-slate-800">/query</code>
+                        </div>
+                        <p class="text-slate-500 text-sm" data-lang="en">Executes virtualized SQL queries against the multi-tenant database cluster.</p>
+                        <p class="text-slate-500 text-sm" data-lang="zh">在多租户数据库集群上执行虚拟化 SQL 查询。</p>
+                    </div>
+                    <div class="p-8">
+                        <h4 class="font-bold text-xs uppercase tracking-widest text-slate-400 mb-6">Request Body (JSON)</h4>
+                        <table class="w-full text-sm text-left mb-8">
+                            <thead class="border-b border-slate-100 text-[10px] uppercase font-black text-slate-400">
+                                <tr>
+                                    <th class="pb-2">Field</th>
+                                    <th class="pb-2">Type</th>
+                                    <th class="pb-2">Required</th>
+                                    <th class="pb-2">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-50">
+                                <tr>
+                                    <td class="py-4 font-mono font-bold text-slate-700">apiKey</td>
+                                    <td class="py-4 text-slate-400 font-mono italic">String</td>
+                                    <td class="py-4"><span class="text-red-500 text-[10px] font-bold px-1.5 py-0.5 border border-red-200 bg-red-50 rounded uppercase">Yes</span></td>
+                                    <td class="py-4 text-slate-600" data-lang="en">Tenant identification key from <code>tenants.json</code>.</td>
+                                    <td class="py-4 text-slate-600" data-lang="zh">来自于 <code>tenants.json</code> 的租户唯一识别密钥。</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-4 font-mono font-bold text-slate-700">sql</td>
+                                    <td class="py-4 text-slate-400 font-mono italic">String</td>
+                                    <td class="py-4"><span class="text-red-500 text-[10px] font-bold px-1.5 py-0.5 border border-red-200 bg-red-50 rounded uppercase">Yes</span></td>
+                                    <td class="py-4 text-slate-600" data-lang="en">Standard MySQL query (rewrite engine will auto-prefix).</td>
+                                    <td class="py-4 text-slate-600" data-lang="zh">标准 MySQL 语句（重写引擎会自动注入前缀）。</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-4 font-mono font-bold text-slate-700">params</td>
+                                    <td class="py-4 text-slate-400 font-mono italic">Array</td>
+                                    <td class="py-4"><span class="text-slate-400 text-[10px] font-bold px-1.5 py-0.5 border border-slate-200 bg-slate-50 rounded uppercase">No</span></td>
+                                    <td class="py-4 text-slate-600" data-lang="en">Values for parameterized queries (prevent SQL injection).</td>
+                                    <td class="py-4 text-slate-600" data-lang="zh">参数化查询的值数组（用于防范 SQL 注入）。</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- API Endpoint: Email -->
+                <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+                    <div class="p-8 border-b border-slate-100 bg-slate-50/50">
+                        <div class="flex items-center space-x-4 mb-4">
+                            <span class="bg-purple-600 text-white text-[10px] font-black px-2 py-1 rounded tracking-widest uppercase">POST</span>
+                            <code class="text-lg font-bold text-slate-800">/email/send</code>
+                        </div>
+                        <p class="text-slate-500 text-sm" data-lang="en">Sends verified emails via SMTP proxy with tenant-level authorization.</p>
+                        <p class="text-slate-500 text-sm" data-lang="zh">通过 SMTP 代理发送经过租户权限校验的电子邮件。</p>
+                    </div>
+                    <div class="p-8">
+                        <h4 class="font-bold text-xs uppercase tracking-widest text-slate-400 mb-6">Request Body (JSON)</h4>
+                        <table class="w-full text-sm text-left">
+                            <thead class="border-b border-slate-100 text-[10px] uppercase font-black text-slate-400">
+                                <tr>
+                                    <th class="pb-2">Field</th>
+                                    <th class="pb-2">Type</th>
+                                    <th class="pb-2">Required</th>
+                                    <th class="pb-2">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-50 text-xs">
+                                <tr>
+                                    <td class="py-3 font-mono font-bold text-slate-700">to</td>
+                                    <td class="py-3 text-slate-400 italic">String|Array</td>
+                                    <td class="py-3 font-bold text-red-500 uppercase">Yes</td>
+                                    <td class="py-3 text-slate-600" data-lang="en">Recipient email address(es).</td>
+                                    <td class="py-3 text-slate-600" data-lang="zh">收件人地址或地址数组。</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 font-mono font-bold text-slate-700">subject</td>
+                                    <td class="py-3 text-slate-400 italic">String</td>
+                                    <td class="py-3 font-bold text-red-500 uppercase">Yes</td>
+                                    <td class="py-3 text-slate-600" data-lang="en">Email subject line.</td>
+                                    <td class="py-3 text-slate-600" data-lang="zh">邮件主题。</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 font-mono font-bold text-slate-700">html | text</td>
+                                    <td class="py-3 text-slate-400 italic">String</td>
+                                    <td class="py-3 font-bold text-red-500 uppercase">Yes</td>
+                                    <td class="py-3 text-slate-600" data-lang="en">Body of the email (must provide at least one).</td>
+                                    <td class="py-3 text-slate-600" data-lang="zh">邮件正文（至少提供 HTML 或纯文本之一）。</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 font-mono font-bold text-slate-700">from</td>
+                                    <td class="py-3 text-slate-400 italic">String</td>
+                                    <td class="py-3 font-bold text-slate-400 uppercase">No</td>
+                                    <td class="py-3 text-slate-600" data-lang="en">Verified sender email (must exist in <code>vmail.mailbox</code>).</td>
+                                    <td class="py-3 text-slate-600" data-lang="zh">经验证的发件人地址（必须存在于 <code>vmail.mailbox</code> 中）。</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 font-mono font-bold text-slate-700">fromName</td>
+                                    <td class="py-3 text-slate-400 italic">String</td>
+                                    <td class="py-3 font-bold text-slate-400 uppercase">No</td>
+                                    <td class="py-3 text-slate-600" data-lang="en">Display name for the sender.</td>
+                                    <td class="py-3 text-slate-600" data-lang="zh">发件人显示的友好名称。</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <!-- Detailed API Demos (Test Cases) -->
-        <section id="demo" class="mb-32 scroll-mt-24">
-            <h2 class="text-3xl font-extrabold mb-12 text-center">
-                <span data-lang="en">Real-world Communication Demos</span>
-                <span data-lang="zh">真实通信用例演示</span>
-            </h2>
-            
-            <div class="space-y-12">
-                <!-- Case 1: Database Query -->
+        <!-- Detailed API Demos -->
                 <div class="bg-slate-900 rounded-3xl shadow-2xl overflow-hidden">
                     <div class="bg-slate-800 px-6 py-4 flex items-center justify-between border-b border-slate-700">
                         <div class="flex items-center space-x-2">
