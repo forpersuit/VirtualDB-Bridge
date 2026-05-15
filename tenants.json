@@ -1,0 +1,6 @@
+{
+  "sk-foreclosure-secure-key-2026": {
+    "prefix": "foreclosure_",
+    "defaultDb": "foreclosure_data"
+  }
+}
