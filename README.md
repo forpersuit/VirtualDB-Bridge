@@ -1,5 +1,7 @@
 # VirtualDB-Bridge
 
+> **🌐 交互式文档预览**: [点击访问可视化控制台 & 部署指南](https://forpersuit.github.io/VirtualDB-Bridge/docs/portal/index.html)
+
 A secure, multi-tenant "Virtual Workspace" database and email gateway.
 
 VirtualDB-Bridge acts as an API proxy that sits in front of a shared MySQL/MariaDB database. It uses transparent SQL rewriting to isolate tenants. When a tenant executes `CREATE DATABASE mydb`, the gateway automatically rewrites it to `tenantprefix_mydb`, providing the illusion of a dedicated database instance while sharing the same underlying infrastructure.
